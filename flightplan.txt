@@ -1,0 +1,53 @@
+// Flightplan
+
+class Time {
+  double timeHours;
+  double timeMinutes;
+  Time(this.timeHours, this.timeMinutes);
+  @override
+  String toString() {
+    return 'Time: $timeHours:$timeMinutes';
+  }
+}
+class Flight {
+  String flightNumber;
+  double flightDuration;
+  double delay;
+  Time startTime;
+  Flight(this.flightNumber, this.flightDuration, this.delay, this.startTime);
+  @override
+  String toString() {
+    return 'Flight information: Flugnummer: $flightNumber, Flugdauer: $flightDuration';
+  }
+  Time calculateActualStartTime() {
+    double minutes = startTime.timeMinutes + delay;
+    double hours = startTime.timeHours;
+    if (minutes >= 60) {
+      minutes -= 60;
+      hours += 1;
+    }
+    return Time(hours, minutes);
+  }
+}
+class Airline {
+  String name;
+  List<Flight> flights;
+  Airline(this.name, this.flights);
+  void addFlight(Flight flight) {
+    flights.add(flight);
+  }
+}
+void main() {
+  Time exampleTime = Time(7, 48);
+  Flight exampleFlight1 = Flight('123', 648, 30, exampleTime);
+  Flight exampleFlight2 = Flight('456', 480, 15, exampleTime);
+  Airline exampleAirline = Airline('Lufthansa', []);
+  exampleAirline.addFlight(exampleFlight1);
+  exampleAirline.addFlight(exampleFlight2);
+  print(exampleAirline.name);
+  print('Flights:');
+  for (Flight flight in exampleAirline.flights) {
+    print(flight);
+    print(flight.calculateActualStartTime());
+  }
+}
