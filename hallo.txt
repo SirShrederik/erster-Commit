@@ -70,7 +70,7 @@ void main() {
 }
 enum Direction { forward, backward, left, right }
 enum Weapons { rockets, bombs, shield, laser }
-Direction getRandomDirection() {
+
   int ind = math.Random().nextInt(4);
   return Direction.values[ind];
 }
